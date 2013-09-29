@@ -1,0 +1,55 @@
+#no-script {
+    display: none;
+}
+.navbar {
+    left: 30px;
+    bottom: 43px;
+    position: absolute;
+    z-index: 4;
+    transition: opacity .1s linear;
+}
+h1 {
+    font-size: 3em;
+    font-family: 'monsters-attack';
+    margin-top: 20px;
+}
+.logo{
+    margin-top: 20px;
+}
+.navbar-login {
+    left: 30px;
+    bottom: 43px;
+    position: absolute;
+    z-index: 4;
+    opacity: 0;
+    transition: opacity .1s linear;
+    pointer-events: none;
+}
+.legal {
+    left: 30px;
+    bottom: 20px;
+    position: absolute;
+    font-size: 0.85em;
+    z-index: 4;
+}
+.logo {
+    transition: opacity .1s linear;
+    color: rgba(0, 109, 204, 0.95);
+    margin: 0;
+    margin-left: 20px;
+}
+a.btn {
+    display: inline-block;
+}
+.panel{
+    visibility: hidden;
+    opacity: 0;
+}
+body[data-ui-mode='1'] #editor-panel{
+    visibility: visible;
+    opacity: 1;
+}
+body[data-ui-mode='0'] #fight-panel{
+    visibility: visible;
+    opacity: 1;
+}

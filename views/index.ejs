@@ -1,11 +1,125 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+<html lang="en">
+<head>
+    <!-- Copyright Ben Aston 2013. All rights reserved. -->
+    <meta name="author" content="Ben Aston">
+
+    <link rel="stylesheet" type="text/css" href="./stylesheets/style-reset.css">
+    <link rel="stylesheet" type="text/css" href="./stylesheets/style-typography.css">
+    <link rel="stylesheet" type="text/css" href="./stylesheets/style-layout.css">
+    <link rel="stylesheet" type="text/css" href="./stylesheets/style-form-element.css">
+    <link rel="stylesheet" type="text/css" href="./stylesheets/style-table.css">
+    <link rel="stylesheet" type="text/css" href="./stylesheets/style-animation.css">
+    <link rel="stylesheet" type="text/css" href="./stylesheets/style-main.css">
+    <link rel="stylesheet" type="text/css" href="./stylesheets/style-editor.css">
+
+    <noscript>
+        <link rel="stylesheet" type="text/css" href="./styles/style-noscript.css">
+    </noscript>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon">
+    <link data-device="2G/3G/3GS" rel="apple-touch-icon" href="./images/appleTouchIcon57.png">
+    <link data-device="4G/4GS" rel="apple-touch-icon" sizes="72x72" href="./images/appleTouchIcon72.png">
+    <link data-device="iPad" rel="apple-touch-icon" sizes="114x114" href="./images/appleTouchIcon114.png">
+    <link data-device="iPad landscape" rel="apple-touch-startup-image" href="./images/appleTouchStartupImage1024.png"
+          media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)">
+    <link data-device="iPad portrait" rel="apple-touch-startup-image" href="./images/appleTouchStartupImage768.png"
+          media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)">
+    <link data-device="iPhone" rel="apple-touch-startup-image" href="./images/appleTouchStartupImage320.png"
+          media="screen and (max-device-width: 320px)">
+
+    <title>Pixel Monsters</title>
+</head>
+<body class="lucid-app-wrapper" data-ui-mode="0">
+<h1 class="logo">pixel monsters</h1>
+
+
+<div id="fight-panel" class="panel lucid-panel-fixed-full-height overflow-visible">
+    <h2 class="logo">Vote to the death!</h2>
+
+    <a href="/monstereditor" class="btn btn-80 btn-primary" title="Create a monster" >&</a>
+
+    <div id="fight-monster-1">monster 1</div>
+    <div id="fight-monster-2">monster 2</div>
+</div>
+
+<div id="editor-panel" class="panel">
+    <h1>Make your monster!</h1>
+    <div id="canvas">
+
+    </div>
+</div>
+
+
+
+
+
+<div class="navbar-login">
+    <a class="btn-log-in" href="/login">log in</a>
+</div>
+<div class="navbar">
+    <a class="btn-my-account" href="/user/show?id=userid">my monsters</a> | <a class="btn-log-out" href="/session/destroy">log out</a>
+</div>
+<div class="legal">
+    pixel monsters. &copy; ben aston 2013
+</div>
+
+<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.3.3/underscore-min.js"></script>
+<script src="http://code.jquery.com/jquery-1.7.2.js"></script>
+<script src="./javascripts/vendor/tiny-pub-sub.js"></script>
+<script src="./javascripts/vendor/_cookie.js"></script>
+<script src="./javascripts/vendor/fast-click.js"></script>
+
+<script src="./javascripts/vendor/invertebrate.js/arrayItemMove.js"></script>
+<script src="./javascripts/vendor/invertebrate.js/invertebrate.js"></script>
+<script src="./javascripts/vendor/invertebrate.js/app.js"></script>
+<script src="./javascripts/vendor/invertebrate.js/config.js"></script>
+<script src="./javascripts/vendor/invertebrate.js/templateServerSvc.js"></script>
+<script src="./javascripts/vendor/invertebrate.js/model.js"></script>
+<script src="./javascripts/vendor/invertebrate.js/view.js"></script>
+<script src="./javascripts/vendor/invertebrate.js/router.js"></script>
+<script src="./javascripts/vendor/invertebrate.js/env.js"></script>
+
+<script src="./javascripts/application/mainApplication.js"></script>
+
+<script src="./javascripts/application/core/services/AuthenticationService.js"></script>
+<script src="./javascripts/application/core/services/CookieService.js"></script>
+<script src="./javascripts/application/core/services/LogInService.js"></script>
+
+<script src="./javascripts/application/core/config.js"></script>
+
+<script src="./javascripts/application/core/models/LoginPanelModel.js"></script>
+<script src="./javascripts/application/core/models/UIRootModel.js"></script>
+<script src="./javascripts/application/core/models/PurchasePanelModel.js"></script>
+<script src="./javascripts/application/core/models/PixelModel.js"></script>
+<script src="./javascripts/application/core/models/CanvasModel.js"></script>
+
+<script src="./javascripts/application/core/views/LoginPanelView.js"></script>
+<script src="./javascripts/application/core/views/UIRootView.js"></script>
+<script src="./javascripts/application/core/views/PurchasePanelView.js"></script>
+<script src="./javascripts/application/core/views/PixelView.js"></script>
+<script src="./javascripts/application/core/views/CanvasView.js"></script>
+
+<script src="./javascripts/application/core/controllers/HomeController.js"></script>
+<script src="./javascripts/application/core/controllers/LoginController.js"></script>
+<script src="./javascripts/application/core/controllers/SessionController.js"></script>
+<script src="./javascripts/application/core/controllers/PurchasePanelController.js"></script>
+<script src="./javascripts/application/core/controllers/AccountActivationController.js"></script>
+<script src="./javascripts/application/core/controllers/AccountActivationPanelController.js"></script>
+<script src="./javascripts/application/core/controllers/MonsterEditorController.js"></script>
+<script src="./javascripts/application/core/controllers/PixelsController.js"></script>
+
+<script src="./javascripts/application/modules.js"></script>
+<script src="./javascripts/application/core/App.js"></script>
+<script src="./javascripts/application/appStart.js"></script>
+
+<div id="no-script">
+    JavaScript must be enabled to use this website.
+</div>
+</body>
 </html>

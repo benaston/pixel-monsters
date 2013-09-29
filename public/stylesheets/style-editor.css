@@ -1,0 +1,37 @@
+#canvas {
+    border: 2px solid black;
+    overflow: hidden;
+    -webkit-user-select: none;
+}
+
+#canvas .pixel {
+    width: 20px;
+    height: 20px;
+    box-shadow: 0 0 0 0px black;
+    float: left;
+    border-radius: 5px;
+}
+
+.pixel[data-color = '0' ] {
+    background-color: white;
+}
+
+.pixel[data-color = '1' ] {
+    background-color: red;
+}
+
+.pixel[data-color = '2' ] {
+    background-color: green;
+}
+
+.pixel[data-color = '3' ] {
+    background-color: blue;
+}
+
+.pixel[data-color = '4' ] {
+    background-color: black;
+}
+
+.pixel[data-color = '5' ] {
+    background-color: yellow;
+}
