@@ -1,5 +1,5 @@
 (function (app) {
-    "use strict";
+    'use strict';
 
     function PixelView(model) {
 
@@ -8,7 +8,15 @@
         }
 
         var that = this,
-            _el = "<a class='pixel' ></a>";
+            _el = "<div class='pixel cube'>" +
+                  "<figure class='top'></figure>" +
+                  "<figure class='left'></figure>" +
+                  "<figure class='front'></figure>" +
+                  "<figure class='right'></figure>" +
+                  "<figure class='bottom'></figure>" +
+                  "<figure class='back'></figure></div>" +
+                  "";
+//                '<a class='pixel' ></a>';
 
         this.$el = $(_el);
         this.Model = null;
@@ -16,8 +24,8 @@
         this.render = function (e, options) {
             options = options || { done: that.postRender };
 
-            that.$el.attr("data-color", that.Model.getColor());
-            that.$el.attr("href", "/pixels/update?id=" + that.Model.getId());
+            that.$el.attr('data-color', that.Model.getColor());
+            that.$el.attr('href', '/pixels/update?id=' + that.Model.getId());
 
             return that;
          };
@@ -30,7 +38,7 @@
 
         function init() {
             if (!model) {
-                throw "model not supplied";
+                throw 'model not supplied';
             }
 
             that.Model = model;

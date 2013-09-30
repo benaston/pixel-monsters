@@ -1,22 +1,22 @@
 (function (app) {
     "use strict";
 
-    function CanvasView(model) {
+    function CanvasView(model, options) {
 
         if (!(this instanceof app.CanvasView)) {
-            return new app.CanvasView(model);
+            return new app.CanvasView(model, options);
         }
 
         var that = this,
             _el = "#canvas",
-            pixelWidth = 20;
+            _pixelWidth = null;
 
         this.$el = null;
         this.Model = null;
 
         function calculateCanvasWidth() {
             var pixelCount = that.Model.getPixels().length;
-            that.$el.width((Math.sqrt(pixelCount) * pixelWidth) );
+            that.$el.width((Math.sqrt(pixelCount) * _pixelWidth) );
         }
 
         this.render = function (e, options) {
@@ -46,6 +46,15 @@
             if (!model) {
                 throw "model not supplied";
             }
+
+            var defaultOptions = {
+                selector: "#canvas",
+                pixelWidth: 10
+            }
+            options = _.extend({}, defaultOptions, options);
+
+            _el = options.selector;
+            _pixelWidth = options.pixelWidth;
 
             that.Model = model;
 

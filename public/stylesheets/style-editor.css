@@ -1,15 +1,40 @@
 #canvas {
+    -webkit-perspective: 800;
+    -webkit-transform: translateZ(-5px) rotateX(30deg) rotateY(-55deg);
+    -webkit-transform-style: preserve-3d;
+    position:absolute;
+    top:200px;
+    left:300px;
+}
+
+#canvas, #preview-canvas {
     border: 2px solid black;
     overflow: hidden;
     -webkit-user-select: none;
 }
 
-#canvas .pixel {
+#canvas.pixel {
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    -webkit-transform-style: preserve-3d;
+}
+#canvas .pixel{
+    width: 10px;
+    height: 10px;
+    position: relative;
+    -webkit-transform-style: preserve-3d;
+}
+#preview-canvas .pixel {
+    width: 1px;
+    height: 1px;
+}
+.pixel {
     width: 20px;
     height: 20px;
-    box-shadow: 0 0 0 0px black;
+    box-shadow: 0 0 0 0px rgba(0,0,0,.1);
     float: left;
-    border-radius: 5px;
+    border-radius: 0px;
 }
 
 .pixel[data-color = '0' ] {
@@ -17,7 +42,7 @@
 }
 
 .pixel[data-color = '1' ] {
-    background-color: red;
+    background-color: rgba(255,0,0,.2);
 }
 
 .pixel[data-color = '2' ] {

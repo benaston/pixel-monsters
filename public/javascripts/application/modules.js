@@ -17,8 +17,7 @@
             Yellow: "5"
         };
 
-    } catch(e)
-    {
+    } catch (e) {
         throw "problem registering enum module. " + e;
     }
 
@@ -31,7 +30,7 @@
     try {
         mod.config = new mainApplication.Config(invertebrate.env.dev);
     }
-    catch(e) {
+    catch (e) {
         throw "problem registering config module. " + e;
     }
 
@@ -42,7 +41,7 @@
 
     try {
     }
-    catch(e) {
+    catch (e) {
         throw "problem registering services module. " + e;
     }
 
@@ -53,7 +52,7 @@
 
     try {
     }
-    catch(e) {
+    catch (e) {
         throw "problem registering caches module. " + e;
     }
 
@@ -63,7 +62,7 @@
 
     try {
     }
-    catch(e) {
+    catch (e) {
         throw "problem registering repositories module. " + e;
     }
 
@@ -74,9 +73,11 @@
 
     try {
         mod.TemplateServerSvc = new invertebrate.TemplateServerSvc(mainApplication.mod("config").config,
-            function(){return '/templates';});
+            function () {
+                return '/templates';
+            });
     }
-    catch(e) {
+    catch (e) {
         throw "problem registering templates module. " + e;
     }
 
@@ -87,9 +88,9 @@
 
     try {
         mod.uiRootModel = new mainApplication.UIRootModel();
-        mod.canvasModel = new mainApplication.CanvasModel(1600);
-         }
-    catch(e) {
+        mod.canvasModel = new mainApplication.CanvasModel(4);
+    }
+    catch (e) {
         throw "problem registering models module. " + e;
     }
 
@@ -100,8 +101,8 @@
 
     try {
 
-     }
-    catch(e) {
+    }
+    catch (e) {
         throw "problem registering factories module. " + e;
     }
 
@@ -113,8 +114,9 @@
     try {
         mod.uiRootView = new mainApplication.UIRootView(mainApplication.mod("models").uiRootModel);
         mod.canvasView = new mainApplication.CanvasView(mainApplication.mod("models").canvasModel);
+        mod.canvasPreview = new mainApplication.CanvasView(mainApplication.mod("models").canvasModel, {selector: "#preview-canvas", pixelWidth: "1"});
     }
-    catch(e) {
+    catch (e) {
         throw "problem registering views module. " + e;
     }
 
@@ -127,8 +129,8 @@
         mod.homeController = new mainApplication.HomeController(mainApplication.mod("models").uiRootModel);
         mod.monsterEditorController = new mainApplication.MonsterEditorController(mainApplication.mod("models").uiRootModel);
         mod.pixelsController = new mainApplication.PixelsController(mainApplication.mod("models").canvasModel);
-         }
-    catch(e) {
+    }
+    catch (e) {
         throw "problem registering controllers module. " + e;
     }
 
