@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="849ab532-4dd7-4430-bf64-3f6c836ea701" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/application/core/views/CanvasView.js" afterPath="$PROJECT_DIR$/public/javascripts/application/core/views/CanvasView.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/application/core/views/PixelView.js" afterPath="$PROJECT_DIR$/public/javascripts/application/core/views/PixelView.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/application/appStart.js" afterPath="$PROJECT_DIR$/public/javascripts/application/appStart.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/index.ejs" afterPath="$PROJECT_DIR$/views/index.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/application/modules.js" afterPath="$PROJECT_DIR$/public/javascripts/application/modules.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/stylesheets/style-editor.css" afterPath="$PROJECT_DIR$/public/stylesheets/style-editor.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="849ab532-4dd7-4430-bf64-3f6c836ea701" name="Default" comment="" />
     <ignored path="pixel-monsters.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/Dummy.txt" changelist="849ab532-4dd7-4430-bf64-3f6c836ea701" time="1380448087329" ignored="false" />
