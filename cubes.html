@@ -1,26 +1,33 @@
 <html>
 	<style>
-		#canvas {
-		-webkit-perspective: 800;
-		-webkit-transform: translateZ(0) rotateX(21deg) rotateY(130deg);
+		.perspective-setter {
+			position: absolute;
+			-webkit-perspective: 1000;
+			-webkit-transform-style: preserve-3d;
+			-webkit-transform: translateZ(0) rotateX(21deg) rotateY(130deg);
+			top: 100px;
+			left: 100px;
+			border:1px solid rgba(240,240, 240,.9);			
+		}
+
+		.canvas {
 		-webkit-transform-style: preserve-3d;
 		position: absolute;
-		top: 200px;
-		left: 300px;
-		border:1px solid black;
 		width:400px;
 		height:400px;
 		margin:0;
 		padding:0;
+		background: -webkit-radial-gradient(center, ellipse cover, rgba(0,0,0,.05) 0%,rgba(11,11,11,.05) 50%,rgba(25,25,25,.05) 51%,rgba(11,11,11,.05) 100%)
 		}
-		#canvas .pixel {
-		width: 50px;
-		height: 50px;
+		.canvas .pixel {
+		width: 20px;
+		height: 20px;
 		position: relative;
 		-webkit-transform-style: preserve-3d;
 		margin:0;
 		padding:0;
 		float: left;
+		background: none;
 		}
 		.cube {
 		position: absolute;
@@ -30,13 +37,14 @@
 		height: 100%;
 		margin:0;
 		padding:0;
+		background: none;
 		}
 
 		.cube figure {
 		display: block;
 		position: absolute;
-		width: 50px;
-		height: 50px;
+		width: 20px;
+		height: 20px;
 		text-align: left;
 		box-sizing: border-box;
 		opacity: 1;
@@ -45,24 +53,33 @@
 		padding:0; /*important to override webkit defaults*/
 		}
 
-		
+		.canvas:nth-child(2) {
+			-webkit-transform: translateZ(50px);
+		}
+		.canvas:nth-child(3) {
+			-webkit-transform: translateZ(100px);
+		}
+		.canvas:nth-child(4) {
+			-webkit-transform: translateZ(150px);
+		}
+
 		.cube .top {
-		-webkit-transform: rotateX(90deg) translateZ(25px);
+		-webkit-transform: rotateX(90deg) translateZ(10px);
 		}
 		.cube .left {
-		-webkit-transform: rotateY(-90deg) translateZ(25px);
+		-webkit-transform: rotateY(-90deg) translateZ(10px);
 		}
 		.cube .front {
-		-webkit-transform: translateZ(25px);
+		-webkit-transform: translateZ(10px);
 		}
 		.cube .right {
-		-webkit-transform: rotateY(90deg) translateZ(25px);
+		-webkit-transform: rotateY(90deg) translateZ(10px);
 		}
 		.cube .bottom {
-		-webkit-transform: rotateX(-90deg) translateZ(25px);
+		-webkit-transform: rotateX(-90deg) translateZ(10px);
 		}
 		.cube .back {
-		-webkit-transform: rotateX(-180deg) translateZ(25px);
+		-webkit-transform: rotateX(-180deg) translateZ(10px);
 		}
 	
 		.cube:nth-child(3n-2) figure {
@@ -74,145 +91,1546 @@
 		.cube:nth-child(3n) figure {
 		background: -webkit-radial-gradient(center, ellipse cover, rgba(30,87,153,.5) 0%,rgba(41,137,216,.5) 50%,rgba(32,124,202,.5) 51%,rgba(125,185,232,.5) 100%);	
 		}
+		.cube:nth-child(5n+3) figure {
+		background: -webkit-radial-gradient(center, ellipse cover, rgba(255,255,255,.5) 0%,rgba(255,255,255,.5) 50%,rgba(255,255,255,.5) 51%,rgba(255,255,255,.5) 100%);	
+		}
+
+		.rotate {
+		    -webkit-animation-name: rotate;
+		}
+
+		@-webkit-keyframes rotate {
+		    0% {
+		        -webkit-transform: rotateX(0) rotateY(0) rotateZ(0) translateZ(0px);
+		         -webkit-transform-origin: 50% 50% 100px;
+		    }
+		    25% {
+		        -webkit-transform: rotateX(0) rotateY(180) rotateZ(0) translateZ(-100px);
+		         -webkit-transform-origin: 50% 50% 100px;
+		    }50% {
+		        -webkit-transform: rotateX(0) rotateY(360) rotateZ(0) translateZ(0px);
+		         -webkit-transform-origin: 50% 50% 100px;
+		    }
+		    75% {
+		        -webkit-transform: rotateX(0) rotateY(520) rotateZ(0) translateZ(100px);
+		         -webkit-transform-origin: 50% 50% 100px;
+		    }
+		    100% {
+		        -webkit-transform: rotateX(0deg) rotateY(720deg) rotateZ(0deg) translateZ(0px);
+		         -webkit-transform-origin: 50% 50% 100px;
+		    }
+		}
+		    .animated {
+		    -webkit-animation-duration: 1s;
+		    -webkit-animation-fill-mode: both;
+		}
+
+				@-webkit-keyframes tada {
+    0% {
+        -webkit-transform: scale(1)
+    }
+    10%, 20% {
+        -webkit-transform: scale(0.9) rotate(-3deg)
+    }
+    30%, 50%, 70%, 90% {
+        -webkit-transform: scale(2.1) rotate(3deg)
+    }
+    40%, 60%, 80% {
+        -webkit-transform: scale(2.1) rotate(-3deg)
+    }
+    100% {
+        -webkit-transform: scale(1) rotate(0)
+    }
+}
+.tada {
+    -webkit-animation-name: tada;
+}
 	</style
 	<body> 	
-	<div id="canvas">
-		<div class="pixel cube" data-color="0" href="/pixels/update?id=1">
-			<figure class="top"></figure>
-			<figure class="left"></figure>
-			<figure class="front"></figure>
-			<figure class="right"></figure>
-			<figure class="bottom"></figure>
-			<figure class="back"></figure>
+	<div class="canvas perspective-setter">
+		<div class="canvas">
+			<div class="pixel cube" data-color="0" href="/pixels/update?id=1">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div>
+			<div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div>
+			<div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div>
+			<div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
+				<figure class="top"></figure>
+				<figure class="left"></figure>
+				<figure class="front"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="back"></figure>
+			</div>
 		</div>
-		<div class="pixel cube" data-color="0" href="/pixels/update?id=0">
-			<figure class="top"></figure>
-			<figure class="left"></figure>
-			<figure class="front"></figure>
-			<figure class="right"></figure>
-			<figure class="bottom"></figure>
-			<figure class="back"></figure>
-		</div>
-		<div class="pixel cube" data-color="0" href="/pixels/update?id=0">
-			<figure class="top"></figure>
-			<figure class="left"></figure>
-			<figure class="front"></figure>
-			<figure class="right"></figure>
-			<figure class="bottom"></figure>
-			<figure class="back"></figure>
-		</div>
-		<div class="pixel cube" data-color="0" href="/pixels/update?id=0">
-			<figure class="top"></figure>
-			<figure class="left"></figure>
-			<figure class="front"></figure>
-			<figure class="right"></figure>
-			<figure class="bottom"></figure>
-			<figure class="back"></figure>
-		</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
-			<figure class="top"></figure>
-			<figure class="left"></figure>
-			<figure class="front"></figure>
-			<figure class="right"></figure>
-			<figure class="bottom"></figure>
-			<figure class="back"></figure>
-		</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
-			<figure class="top"></figure>
-			<figure class="left"></figure>
-			<figure class="front"></figure>
-			<figure class="right"></figure>
-			<figure class="bottom"></figure>
-			<figure class="back"></figure>
-		</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
-			<figure class="top"></figure>
-			<figure class="left"></figure>
-			<figure class="front"></figure>
-			<figure class="right"></figure>
-			<figure class="bottom"></figure>
-			<figure class="back"></figure>
-		</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
-			<figure class="top"></figure>
-			<figure class="left"></figure>
-			<figure class="front"></figure>
-			<figure class="right"></figure>
-			<figure class="bottom"></figure>
-			<figure class="back"></figure>
-		</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
-			<figure class="top"></figure>
-			<figure class="left"></figure>
-			<figure class="front"></figure>
-			<figure class="right"></figure>
-			<figure class="bottom"></figure>
-			<figure class="back"></figure>
-		</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
-			<figure class="top"></figure>
-			<figure class="left"></figure>
-			<figure class="front"></figure>
-			<figure class="right"></figure>
-			<figure class="bottom"></figure>
-			<figure class="back"></figure>
-		</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
-			<figure class="top"></figure>
-			<figure class="left"></figure>
-			<figure class="front"></figure>
-			<figure class="right"></figure>
-			<figure class="bottom"></figure>
-			<figure class="back"></figure>
-		</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
-			<figure class="top"></figure>
-			<figure class="left"></figure>
-			<figure class="front"></figure>
-			<figure class="right"></figure>
-			<figure class="bottom"></figure>
-			<figure class="back"></figure>
-		</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
-			<figure class="top"></figure>
-			<figure class="left"></figure>
-			<figure class="front"></figure>
-			<figure class="right"></figure>
-			<figure class="bottom"></figure>
-			<figure class="back"></figure>
-		</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
-			<figure class="top"></figure>
-			<figure class="left"></figure>
-			<figure class="front"></figure>
-			<figure class="right"></figure>
-			<figure class="bottom"></figure>
-			<figure class="back"></figure>
-		</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
-			<figure class="top"></figure>
-			<figure class="left"></figure>
-			<figure class="front"></figure>
-			<figure class="right"></figure>
-			<figure class="bottom"></figure>
-			<figure class="back"></figure>
-		</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
-			<figure class="top"></figure>
-			<figure class="left"></figure>
-			<figure class="front"></figure>
-			<figure class="right"></figure>
-			<figure class="bottom"></figure>
-			<figure class="back"></figure>
-		</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
-			<figure class="top"></figure>
-			<figure class="left"></figure>
-			<figure class="front"></figure>
-			<figure class="right"></figure>
-			<figure class="bottom"></figure>
-			<figure class="back"></figure>
-		</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
-			<figure class="top"></figure>
-			<figure class="left"></figure>
-			<figure class="front"></figure>
-			<figure class="right"></figure>
-			<figure class="bottom"></figure>
-			<figure class="back"></figure>
-		</div><div class="pixel cube" data-color="0" href="/pixels/update?id=0">
-			<figure class="top"></figure>
-			<figure class="left"></figure>
-			<figure class="front"></figure>
-			<figure class="right"></figure>
-			<figure class="bottom"></figure>
-			<figure class="back"></figure>
-		</div>
+		
 	</div>
 </html>
