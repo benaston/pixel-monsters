@@ -88,7 +88,7 @@
 
     try {
         mod.uiRootModel = new mainApplication.UIRootModel();
-        mod.canvasModel = new mainApplication.CanvasModel(4);
+        mod.canvasModel = new mainApplication.CanvasModel(100);
     }
     catch (e) {
         throw "problem registering models module. " + e;

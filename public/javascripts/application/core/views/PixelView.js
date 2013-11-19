@@ -8,13 +8,13 @@
         }
 
         var that = this,
-            _el = "<div class='pixel cube'>" +
+            _el = "<a class='pixel cube'>" +
                   "<figure class='top'></figure>" +
                   "<figure class='left'></figure>" +
                   "<figure class='front'></figure>" +
                   "<figure class='right'></figure>" +
                   "<figure class='bottom'></figure>" +
-                  "<figure class='back'></figure></div>" +
+                  "<figure class='back'></figure></a>" +
                   "";
 //                '<a class='pixel' ></a>';
 
